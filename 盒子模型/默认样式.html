@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1">
+    <title>默认样式</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        span {
+            background-color: lightblue;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="content">
+        <span>|第1段文字|</span>
+        <span>|第2段文字|</span>
+        <span>|第3段文字|</span>
+        <span>|第4段文字|</span>
+        <span>|第5段文字|</span>
+        <span>|第6段文字|</span>
+    </div>
+    <form id="selector">
+        <br>
+        <input type="radio" value="1" name="method"><label for="1">方案一：修改font-size</label><br>
+        <input type="radio" value="2" name="method"><label for="2">方案二：修改span结构</label><br>
+        <input type="radio" value="0" name="method" checked><label for="0">原本样式</label><br>
+    </form>
+    <script type="text/javascript">
+        const $ = document.querySelector.bind(document)
+        const styleId = 'my-style'
+        function reset() {
+            if($(`#${styleId}`)){
+                $(`#${styleId}`).remove()
+            }
+            let content = ''
+            for(let i=0;i<6;i++){
+                content += `<span>第${i+1}段文字</span>\r\n`
+            }
+            $('#content').innerHTML = content
+        }
+        function setStyle() {
+            reset()
+            const styleContent = '#content{font-size:0;}span{font-size:14px;}'
+            const style = document.createElement('style')
+            style.id = styleId
+            style.type = 'text/css'
+            style.innerHTML = styleContent
+            document.head.appendChild(style)
+        }
+        function changeContent(){
+            reset()
+            let content = ''
+            for(let i=0;i<6;i++){
+                content += `<span>第${i+1}段文字</span>`
+            }
+            $('#content').innerHTML = content
+        }
+        function setEvent(){
+            const methodObj = {
+                '0': reset,
+                '1': setStyle,
+                '2': changeContent
+            }
+            document.querySelectorAll('input[type=radio][name=method]').forEach(item=>{
+                item.onchange = ev=>{
+                    const val = ev.target.value
+                    if(val in methodObj){
+                        methodObj[val]()
+                    }
+                }
+            })
+        }
+        setEvent()
+    </script>
+</body>
+
+</html>

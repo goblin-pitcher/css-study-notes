@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>margin</title>
+	<style type="text/css">
+		.box1{
+			height: 500px;
+			padding: 50px;
+			background-color: lightgray;
+			overflow: hidden;
+			/* 伪元素与box2之间有间距，可利用font-size:0;消除 */
+			/* font-size: 0; */
+		}
+		.box1:after{
+			content: '';
+			display: inline-block;
+			width: 0;
+			height: 100%;
+			vertical-align: middle;
+		}
+		.box2{
+			display: inline-block;
+			vertical-align: middle;
+			width: 400px;
+			height:200px;
+			background-color: blue;
+		}
+	</style>
+</head>
+<body>
+	<div class="box1">
+		<div class="box2"></div>
+	</div>
+</body>
+</html>

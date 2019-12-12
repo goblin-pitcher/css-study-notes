@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no,maximun-scalable=1.0,minimum-scalable=1.0">
+	<title>邮箱验证</title>
+	<style type="text/css">
+	*{
+		margin:0;
+		padding:0;
+	}
+	input[type='submit'] {
+		opacity: 0.5;
+		pointer-events: none;
+	}
+	input[type='email']:required:valid + input{
+		opacity: 1;
+		pointer-events: unset;
+	}
+	</style>
+</head>
+<body>
+	<form action="">
+		<input type="email" required>
+		<input type="submit">
+	</form>
+</div>
+</body>
+</html>

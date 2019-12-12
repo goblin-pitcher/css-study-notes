@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport"
+		content="width=device-width,user-scalable=no,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0">
+	<title>选择特定对象</title>
+	<style type="text/css">
+		* {
+			margin: 0;
+			padding: 0;
+		}
+
+		div>* {
+			background-color: lightgreen;
+		}
+
+		/*注意7，虽然是第7个子元素，但是第4个p元素，不符合奇数个p的选择器*/
+		.content1>p:nth-of-type(2n+1):not(.ignore) {
+			background-color: lightpink;
+		}
+
+		body>p {
+			margin-top: 20px;
+		}
+
+		/*是p元素，且是第偶数个孩子*/
+		.content2>p:nth-child(2n) {
+			background-color: lightgray;
+		}
+	</style>
+</head>
+
+<body>
+	<p>测试：nth-of-type</p>
+	<div class="content1">
+		<p>p:1</p>
+		<div>div:2</div>
+		<h3>h3:3</h3>
+		<p>p:4</p>
+		<p class="ignore">p(.ignore):5</p>
+		<div>div:6</div>
+		<p>p:7</p>
+		<p>p:8</p>
+	</div>
+	<p>测试：nth-child</p>
+	<div class="content2">
+		<p>p:1</p>
+		<div>div:2</div>
+		<h3>h3:3</h3>
+		<p>p:4</p>
+		<p class="ignore">p(.ignore):5</p>
+		<div>div:6</div>
+		<p>p:7</p>
+		<p>p:8</p>
+	</div>
+</body>
+
+</html>

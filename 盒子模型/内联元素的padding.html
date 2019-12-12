@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+        content="width=device-width,initial-scale=1,user-scalable=no,maximun-scale=1.0,minimum-scale=1.0">
+    <title>内联元素的padding</title>
+    <style type="text/css">
+    .content>span{
+        /*内联元素内边距不影响布局*/
+        padding: 10px 10px 30px;
+        background-color: lightcoral;
+    }
+    .inner{
+        height: 80px;
+        background-color: lightblue;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="content">
+        <span>这是一段文字</span>
+        <div class="inner"></div>
+    </div>
+</body>
+
+</html>
