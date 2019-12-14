@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>float</title>
+	<style type="text/css">
+		.box1{
+			border: 10px red solid;
+		}
+		.box2{
+			float: left;
+			width: 200px;
+			height:200px;
+			background-color: yellow;
+		}
+	</style>
+</head>
+<body>
+	<div class="box1">
+		<div class="box2"></div>
+	</div>
+	<form id="selector">
+        <br>
+        <input type="radio" value="1" id="method1" name="method"><label for="method1">方案一：box1开启BFC</label><br>
+        <input type="radio" value="2"  id="method2" name="method"><label for="method2">方案二：box1添加伪元素清除浮动</label><br>
+        <input type="radio" value="0"  id="method0" name="method" checked><label for="method0">原本样式</label><br>
+    </form>
+    <script type="text/javascript">
+        const $ = document.querySelector.bind(document)
+        const styleId = 'my-style'
+        function reset() {
+            if($(`#${styleId}`)){
+                $(`#${styleId}`).remove()
+            }
+        }
+        function setBFC() {
+            reset()
+            const styleContent = '.box1{overflow: hidden;}'
+            const style = document.createElement('style')
+            style.id = styleId
+            style.type = 'text/css'
+            style.innerHTML = styleContent
+            document.head.appendChild(style)
+        }
+        function clearfix(){
+            reset()
+            const styleContent = `.box1::after{content:'';clear: both;display: block;}`
+            const style = document.createElement('style')
+            style.id = styleId
+            style.type = 'text/css'
+            style.innerHTML = styleContent
+            document.head.appendChild(style)
+        }
+        function setEvent(){
+            const methodObj = {
+                '0': reset,
+                '1': setBFC,
+                '2': clearfix
+            }
+            document.querySelectorAll('input[type=radio][name=method]').forEach(item=>{
+                item.onchange = ev=>{
+                    const val = ev.target.value
+                    if(val in methodObj){
+                        methodObj[val]()
+                    }
+                }
+            })
+        }
+        setEvent()
+    </script>
+</body>
+</html>
