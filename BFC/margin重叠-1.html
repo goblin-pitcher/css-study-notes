@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>BFC</title>
+	<style type="text/css">
+		.box1{
+			background-color: yellow;
+			width:100px;
+			height:100px;
+			margin:50px;
+		}
+		.box2{
+			background-color: lightgray;
+			width:100px;
+			height:100px;
+			margin:50px;
+		}
+	</style>
+</head>
+<body>
+	<div id='content'>
+		<div class="box1">box1</div>
+		<div class="box2">box2</div>
+	</div>
+	<div class='checkbox'>
+		<div>
+			<input type="checkbox" name="BFC" alt="box1" onclick="checkBFC(this)">
+			box1添加父元素阻隔margin重叠
+		</div>
+		<div>
+			<input type="checkbox" name="BFC" alt="box1" onclick="checkInlineBlock(this)">
+			box1设为inline-block(非block)
+		</div>
+		<div>
+			<input type="checkbox" name="BFC" alt="box2" onclick="checkFloat(this)">
+			box2脱离文档流
+		</div>
+	</div>
+	<script type="text/javascript">
+		const $ = document.querySelector.bind(document)
+		function checkBFC(ele){
+			const box1 = $('.box1').outerHTML
+			const parentId = 'parent'
+			if(ele.checked){
+				const parent = document.createElement('div')
+				parent.id = parentId
+				parent.innerHTML = box1
+				parent.style.overflow = 'hidden'
+				$('.box1').replaceWith(parent)
+			}else{
+				$(`#${parentId}`).outerHTML = box1
+			}
+		}
+		function checkInlineBlock(ele){
+			$(`.${ele.alt}`).style.display = ele.checked?'inline-block':''
+		}
+		function checkFloat(ele){
+			$(`.${ele.alt}`).style.float = ele.checked? 'left': ''
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>BFC</title>
+	<style type="text/css">
+		.parent{
+			background-color: lightpink;
+			width:400px;
+			height:400px;
+			margin: 100px;
+		}
+		.content::before{
+			content: '';
+			/* dispaly设为inline-block也能防止margin重叠，
+			* 但浏览器默认样式会使其与其他元素之间产生距离，
+			* 在其父元素设置font-size:0;虽能避免间距，但可能影响内部样式 
+			*/
+			display: block;
+			overflow：hidden;
+		}
+		.child1{
+			background-color: yellow;
+			width:100px;
+			height:100px;
+			margin:50px;
+		}
+		.child2{
+			background-color: lightgray;
+			width:100px;
+			height:100px;
+			margin:50px;
+		}
+	</style>
+</head>
+<body>
+	<div class="parent">
+		<div class="child1">子元素1</div>
+		<div class="child2">子元素2</div>
+	</div>
+	<div class='checkbox'>
+		<div>
+			<input type="checkbox" name="BFC" alt="parent" onclick="checkBFC(this)">
+			父元素BFC
+		</div>
+		<div>
+			<input type="checkbox" name="BFC" alt="child1" onclick="checkInlineBlock(this)">
+			子元素1设为inline-block
+		</div>
+		<div>
+			<input type="checkbox" name="BFC" alt="parent" onclick="checkPseudo(this)">
+			利用伪元素阻隔margin重叠
+		</div>
+	</div>
+	<script type="text/javascript">
+		const $ = document.querySelector.bind(document)
+		function reset(){
+			$('.parent').className = 'parent'
+		}
+		function checkBFC(ele){
+			reset()
+			$(`.${ele.alt}`).style.overflow = ele.checked?'hidden':''
+		}
+		function checkInlineBlock(ele){
+			reset()
+			$(`.${ele.alt}`).style.display = ele.checked?'inline-block':''
+		}
+		function checkPseudo(ele){
+			$(`.${ele.alt}`).className += ' content'
+		}
+	</script>
+</body>
+</html>
