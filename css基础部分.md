@@ -239,8 +239,8 @@ IE6及以前的版本没有BFC，IE6中hasLayout属性和BFC效果一样,hasLayo
 4. 兄弟元素间的margin重叠，给元素设置float、绝对定位的解决方式，其本质不是因为BFC(原因见3)，而是因为脱离文档流，隔绝了文档流内的元素对其本身的影响，相当于隔绝了margin,而将display设为inline-block的解决方式，其本质是将元素变为非块级元素，而margin的重叠是块级元素的规则
 
 demo:
-[margin重叠-1]()
-[margin重叠-2]()
+[margin重叠-1](https://github.com/goblin-pitcher/css-study-notes/blob/master/BFC/margin%E9%87%8D%E5%8F%A0-1.html)
+[margin重叠-2](https://github.com/goblin-pitcher/css-study-notes/blob/master/BFC/margin%E9%87%8D%E5%8F%A0-2.html)
 
 总结：
 
