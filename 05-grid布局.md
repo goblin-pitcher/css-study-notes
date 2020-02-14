@@ -1,0 +1,129 @@
+### grid-template
+
++ grid-template-columns/grid-template-rows
+
+  - 使用空格分隔多个值来定义网格的列和行
+
+  - ````css
+    .container {
+        grid-template-columns: <track-size>...|<line-name><track-size>...;
+        grid-template-rows: <track-size>...|<line-name><track-size>...;
+    }
+    ````
+
+    * track-size是指**轨道**宽度
+
+    * track-size设为auto时，auto代表剩下的宽度，没有剩余空间的情况下，auto默认宽度是内容宽度
+
+    * 同理，`<track-size>`以fr为单位时，若没有剩余空间，默认宽度也是由内容撑开
+
+    * 注意，假设代码如下：
+
+      ````html
+      <div class="container">
+          <div class="item"><span></span></div>
+          <div class="item"><span></span></div>
+          	......
+          <div class="item"><span></span></div>
+          <div class="item"><span></span></div>
+      </div>
+      ````
+
+      此处说的网格由内容撑开，内容并不是指的`<span></span>`中的内容，`.container`划分了网格，`<div class="item"></div>`便是网格中的**内容**。
+
+      比如设置`<track-size>`为150px，`.item { width:100px; }`，可以看到网格中会有50px的空白区域。
+
+      比如给item的宽高设为100%，会发现item的百分比是以网格为准的。
+
+    * line-name是指可以为网格线命名，如
+
+      ````css
+      .container {
+          grid-template-columns: [one] 10% [two second] 100px [three][four] auto [end];
+      }
+      ````
+
+      1. []中的内容即为网格线的命名，`[two second]`表示网格线有两个别名——two和second，
+
+         `[three][four]`也可表示两个别名
+
+      2. 注意line-name和track-size的排布，两条线之间的是轨道
+
+      3. 别名的作用主要体现在**划分网格区域**
+
++ template简写
+
+  - grid-template: none|<del>subgrid</del>|<grid-template-rows>/<grid-template-columns>
+
+### gap
+
+- gap: <grid-row-gap>  <grid-column-gap>;
+  - grid-gap是老版本，逐渐被gap取代
+
++ 网格之间的间距，只对网格之间的间距起作用，边沿的间距不起作用
+
+### 居中
+
++ items的居中：
+  + 行方向：justify-items
+  + 列方向：align-items
+  + 缩写：place-items: <align-items> <justify-items>;
++ content的居中：
+  	- 行方向：justify-content
+  	- 列方向：align-content
+   - 缩写：place-content: <align-content>  <justify-content>;
+     - align-content/justify-content的值和flex布局一样，都有space-around和space-between，不同的是多了一个space-evenly
+     - spaced-evenly: 在每个grid item之间设置均等宽度的空白间隙，**包括外边缘**
+
+### grid-auto
+
+> 当items数量多于grid-template预设的网格数时，会生成新的网格容纳多出的items，grid-auto是控制生成多余网格规则的属性。
+
++ grid-auto-columns/grid-auto-rows
+
+  - 指定自动生成的**隐式网格轨道**大小
+    * 隐式网格轨道：在显式网格轨道的定位超出指定网格范围的行或列时被创建
+  - grid-auto-columns/grid-auto-rows：<track-size>...;
+
++ grid-auto-flow
+
+  - 控制自动布局算法的工作方式
+
+  - ````css
+    .container {
+        grid-auto-flow: row|column|row dense|column dense;
+    }
+    ````
+
+  - row/column：依次填充每行/列，根据需要添加新行/列
+
+  - dense：尝试用网格填充完空白区域
+
+    * 当空间不够时会尝试压缩，空间多余会尝试伸展
+    * 类似与flex布局的flex-grow和flex-shrink的结合
+
+### grid缩写
+
++ ````css
+  .container {
+      /* []中的内容代表可省略 */
+  	grid:none|<grid-template-rows>/<grid-template-columns>|<grid-auto-flow>[<grid-auto-rows>[/<grid-auto-columns>]];
+  }
+  ````
+
+### css函数
+
++ repeat()
+  - 只能用于grid-template-columns/grid-template-rows
+  - 使用方实`grid-template-columns: repeat(type, value)`
+    * type:
+      1. <number>：整数，确定重复的次数
+      2. <auto-fill>：以**网格项**为准自动填充
+      3. <auto-fit>：以**网格容器**为准自动填充
+    * value: 
+      1. 长度值，单位可以是px,%,fr
+      2. max-content
+      3. min-content
+      4. auto
++ fit-content()
++ minmax()
