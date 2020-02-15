@@ -1,3 +1,5 @@
+## 网格容器上的属性
+
 ### grid-template
 
 + grid-template-columns/grid-template-rows
@@ -134,3 +136,98 @@
   - 实现方式：`grid-template-columns: minmax(minVal, maxVal)`
     - 特殊情况：minVal大于maxVal时，执行`(minVal > maxVal) && (maxVal = minVal)`
     - 当maxVal单位是fr时，可能会出现（minVal > maxVal）的特殊情况
+    - 根据[测试](https://codepen.io/goblin-pitcher/pen/abOdLad)来看，配置为`repeat(auto-fill/auto-fit, minmax(minVal, maxVal))`时，都以maxVal作为宽度，区别如下：
+      - auto-fill根据网格容器长度，确定每行/列填充多少个，填充完后，因为仍有剩余空间，因此会继续生成网格
+      - auto-fit根据网格项的长度，准确定每行/列填充多少个，网格项填充完后，即使有剩余空间，也不会生成多余网格。
+
+----
+
+## 网格上的属性
+
+### start/end
+
+- 使用特定的网格线确定grid item在网格内的位置
+- 前面命名网格线的作用通过此属性体现
+
+- ````css
+  .item {
+      grid-(row|column)-(start|end): <line>|span [line]|auto;
+  }
+  ````
+
+- <line>：<number>|<name>，用于标识网格线
+
+  * 注意，网格线编号number和nth-child、nth-of-type等css属性一样，是从1开始的。
+
+  * ````css
+    .item:nth-child(2){
+         /*设置此属性后，第二个item及以后的item全部后移*/
+        grid-column-start: 3;
+        grid-column-end: 5; 
+        /*设置属性后，该项下移，其后面的item自动填充该item下移导致的空位*/
+        grid-row-start: 2;
+        grid-row-end: 5;
+    }
+    ````
+
+  * 若grid-column-start和grid-column-end只设置一个，则item**默认只占用一个网格项**
+
+  * 参见[例子](https://codepen.io/goblin-pitcher/pen/abOdLad)
+
+  * number数值可以为0或负数，为0时不起作用，为负数时从尾部开始（不建议用）
+
+- span <number>: 网格项将跨越指定数量的网格轨道
+
+  - ````css
+    .item:nth-child(2){
+         /*start line不变，end line是start line后面两格的线*/
+        grid-column-start: span 2;
+    }
+    .item:nth-child(2){
+         /*start end不变，start line是end line前面两格的线*/
+        grid-column-end: span 2;
+    }
+    ````
+
+- span <name>: 网格项将跨越一些轨道，直到碰到指定名字的网格线
+
+- auto：自动布局，默认跨越一个轨道
+
+- **注意**，控制网格线的属性能使布局生成隐式网格项
+
+- **注意**，网格项可以相互重叠，用z-index控制它们的堆叠顺序
+
+- 简写：
+
+  * ````css
+    .item {
+        /*‘/’前后的空格建议不省略，避免部分浏览器不能识别*/
+        grid-column: <grid-column-start> / <grid-column-end>;
+        grid-row: <grid-row-start> / <grid-row-end>;
+    }
+    ````
+
+  * 
+
+### grid-area
+
+- 前面grid-template-areas属性中的命名在此处引用
+
+- ````
+  .item {
+  	grid-area: <name>|<row-start>/<column-start>/<row-end>/<column-end>;
+  }
+  ````
+
+  - <row-start>/<column-start>/<row-end>/<column-end>：可以是数字，也可以是网格线的名字，注意属性的书写顺序。
+  - 参见[例子](https://codepen.io/goblin-pitcher/pen/dyooOKd)
+
+### self
+
+虽然container属性能控制item里内容的布置，但有时候部分item需要有定制化的样式
+
++ justify-self
+  - 沿着行轴对齐grid item里的内容
+  - justify-self: <start>|<end>|<center>|<stretch>;
++ align-self
+  - align-self: <start>|<end>|<center>|<stretch>;
