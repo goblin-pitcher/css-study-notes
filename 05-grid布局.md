@@ -118,12 +118,19 @@
   - 使用方实`grid-template-columns: repeat(type, value)`
     * type:
       1. <number>：整数，确定重复的次数
-      2. <auto-fill>：以**网格项**为准自动填充
-      3. <auto-fit>：以**网格容器**为准自动填充
+      2. <auto-fill>：根据网格容器长度，确定每行/列填充多少个
+      3. <auto-fit>：根据网格项的长度，准确定每行/列填充多少个
     * value: 
-      1. 长度值，单位可以是px,%,fr
-      2. max-content
-      3. min-content
-      4. auto
+      1. <length [<name>]>，length为长度值，单位可以是px,%,fr，<name>为网格名，可省略
+      2. max-content：网格轨道长度自适应内容最大的单元格
+      3. min-content：网格轨道长度自适应内容最小的单元格
+      4. auto：空间充足时占满剩余空间，空间不足时作为min-content
 + fit-content()
+  - 实现方实：`grid-template-columns: fit-content(value)`
+    * value为长度值，可以是px/%
+  - 实现效果：网格宽度 = 内容 < value ? 内容：value
 + minmax()
+  - 定义长宽范围的**闭区间**
+  - 实现方式：`grid-template-columns: minmax(minVal, maxVal)`
+    - 特殊情况：minVal大于maxVal时，执行`(minVal > maxVal) && (maxVal = minVal)`
+    - 当maxVal单位是fr时，可能会出现（minVal > maxVal）的特殊情况
