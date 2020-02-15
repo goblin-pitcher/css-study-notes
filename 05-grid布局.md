@@ -55,11 +55,11 @@
 
 + template简写
 
-  - grid-template: none|<del>subgrid</del>|<grid-template-rows>/<grid-template-columns>
+  - grid-template: none|<del>subgrid</del>|`<grid-template-rows>/<grid-template-columns>`
 
 ### gap
 
-- gap: <grid-row-gap>  <grid-column-gap>;
+- gap: `<grid-row-gap>  <grid-column-gap>;`
   - grid-gap是老版本，逐渐被gap取代
 
 + 网格之间的间距，只对网格之间的间距起作用，边沿的间距不起作用
@@ -69,11 +69,11 @@
 + items的居中：
   + 行方向：justify-items
   + 列方向：align-items
-  + 缩写：place-items: <align-items> <justify-items>;
+  + 缩写：place-items: `<align-items> <justify-items>;`
 + content的居中：
   	- 行方向：justify-content
   	- 列方向：align-content
-   - 缩写：place-content: <align-content>  <justify-content>;
+   - 缩写：place-content: `<align-content>  <justify-content>;`
      - align-content/justify-content的值和flex布局一样，都有space-around和space-between，不同的是多了一个space-evenly
      - spaced-evenly: 在每个grid item之间设置均等宽度的空白间隙，**包括外边缘**
 
@@ -85,7 +85,7 @@
 
   - 指定自动生成的**隐式网格轨道**大小
     * 隐式网格轨道：在显式网格轨道的定位超出指定网格范围的行或列时被创建
-  - grid-auto-columns/grid-auto-rows：<track-size>...;
+  - grid-auto-columns/grid-auto-rows：`<track-size>...;`
 
 + grid-auto-flow
 
@@ -119,11 +119,11 @@
   - 只能用于grid-template-columns/grid-template-rows
   - 使用方实`grid-template-columns: repeat(type, value)`
     * type:
-      1. <number>：整数，确定重复的次数
-      2. <auto-fill>：根据网格容器长度，确定每行/列填充多少个
-      3. <auto-fit>：根据网格项的长度，准确定每行/列填充多少个
+      1. `<number>`：整数，确定重复的次数
+      2. `<auto-fill>`：根据网格容器长度，确定每行/列填充多少个
+      3. `<auto-fit>`：根据网格项的长度，准确定每行/列填充多少个
     * value: 
-      1. <length [<name>]>，length为长度值，单位可以是px,%,fr，<name>为网格名，可省略
+      1. `<length [<name>]>`，length为长度值，单位可以是px,%,fr，`<name>`为网格名，可省略
       2. max-content：网格轨道长度自适应内容最大的单元格
       3. min-content：网格轨道长度自适应内容最小的单元格
       4. auto：空间充足时占满剩余空间，空间不足时作为min-content
@@ -155,7 +155,7 @@
   }
   ````
 
-- <line>：<number>|<name>，用于标识网格线
+- `<line>：<number>|<name>`，用于标识网格线
 
   * 注意，网格线编号number和nth-child、nth-of-type等css属性一样，是从1开始的。
 
@@ -176,7 +176,7 @@
 
   * number数值可以为0或负数，为0时不起作用，为负数时从尾部开始（不建议用）
 
-- span <number>: 网格项将跨越指定数量的网格轨道
+- span `<number>`: 网格项将跨越指定数量的网格轨道
 
   - ````css
     .item:nth-child(2){
@@ -189,7 +189,7 @@
     }
     ````
 
-- span <name>: 网格项将跨越一些轨道，直到碰到指定名字的网格线
+- span `<name>`: 网格项将跨越一些轨道，直到碰到指定名字的网格线
 
 - auto：自动布局，默认跨越一个轨道
 
@@ -219,7 +219,7 @@
   }
   ````
 
-  - <row-start>/<column-start>/<row-end>/<column-end>：可以是数字，也可以是网格线的名字，注意属性的书写顺序。
+  - `<row-start>/<column-start>/<row-end>/<column-end>`：可以是数字，也可以是网格线的名字，注意属性的书写顺序。
   - 参见[例子](https://codepen.io/goblin-pitcher/pen/dyooOKd)
 
 ### self
@@ -228,6 +228,6 @@
 
 + justify-self
   - 沿着行轴对齐grid item里的内容
-  - justify-self: <start>|<end>|<center>|<stretch>;
+  - justify-self: `<start>|<end>|<center>|<stretch>`;
 + align-self
-  - align-self: <start>|<end>|<center>|<stretch>;
+  - align-self: `<start>|<end>|<center>|<stretch>`;
