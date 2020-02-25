@@ -15,7 +15,7 @@
 
     * track-size是指**轨道**宽度
 
-    * track-size设为auto时，auto代表剩下的宽度，没有剩余空间的情况下，auto默认宽度是内容宽度
+    * track-size设为auto时，auto代表剩下的宽度，没有剩余空间的情况下，auto默认宽度是内容宽度 
 
     * 同理，`<track-size>`以fr为单位时，若没有剩余空间，默认宽度也是由内容撑开
 
